@@ -1,0 +1,40 @@
+SMSC.ru SMS alerting module for Zabbix
+
+Author: Igor A. Perminov <igor.a.perminov@gmail.com>
+License: GPL v2+
+
+Installation steps (tested for Ubuntu 14.04)
+
+0. Prerequisites:
+
+0.1. It is assumed that Zabbix server is installed and running.
+
+0.2. The directory for Zabbix alert scripts is /usr/lib/zabbix/alertscripts.
+
+0.3. Curl and sed are installed.
+
+1. Download and unpack the distribution archive zabbix-smsc-<version>.tar.gz
+(replace <version> with the actual version of the module):
+
+    sudo tar xvzf zabbix-smsc-<version>.tar.gz -C /
+
+2. Secure the configuration file to keep credentials in secret:
+
+    sudo chown root:zabbix /usr/local/etc/smsc/smsc.conf
+    sudo chmod 640 /usr/local/etc/smsc/smsc.conf
+
+3. Specify your SMSC.ru user name and password in /usr/local/etc/smsc/smsc.conf
+(USER_ID and PASSWORD variables correspondingly).
+
+4. Register the media type in Zabbix:
+
+4.1. Into Zabbix web GUI navigate to Administration > Media types.
+
+4.2. Create the media type:
+
+    Name:        SMS
+    Type:        Script
+    Script name: smsc.sh
+    Enabled:     <checked>
+
+5. Use this media type in your notifications.
